@@ -1,0 +1,25 @@
+---
+import { client } from "../../../tina/__generated__/client";
+
+import { TinaMarkdown } from "tinacms/dist/rich-text";
+
+export const getStaticPaths = async () => {
+    const postsResponse = await client.queries.postConnection();
+    const posts = postsResponse.data.postConnection.edges?.map((post) => {
+        return {
+            params: {
+                slug: post?.node?._sys.filename,
+            },
+            props: post,
+        };
+    });
+    return posts;
+};
+
+const post = Astro.props.node;
+---
+
+<h1>{post?.title}</h1>
+<article>
+    <TinaMarkdown content={post?.body} />
+</article>

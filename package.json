@@ -23,6 +23,7 @@
     "typescript": "^5.6.3"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "@tinacms/cli": "^1.6.11",
     "@types/node": "^22.9.0"
   }

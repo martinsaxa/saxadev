@@ -1,33 +1,44 @@
 ---
+import Layout from "../components/Layout.astro";
 import { client } from "../../tina/__generated__/client";
 
 const postsResponse = await client.queries.postConnection();
 const posts = postsResponse.data.postConnection.edges?.map((post) => {
+    if (!post?.node) return null;
     return {
-        title: post?.node?.title,
-        slug: post?.node?._sys.filename,
+        title: post.node.title,
+        slug: post.node._sys.filename,
+        date: post.node.date,
     };
-});
+}) as { title: string; slug: string; date: string }[];
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <h1 class="text-4xl">Astro</h1>
-        <ul>
+<Layout title="Home">
+    <h1 class="text-3xl font-bold">Martin's blog</h1>
+    <section>
+        <h2 class="text-xl font-semibold">Latest Posts</h2>
+        <ul class="flex flex-col gap-0.5">
             {
-                posts?.map((post) => (
+                posts.map((post) => (
                     <li>
-                        <a href={`/posts/${post.slug}`}>{post.title}</a>
+                        <a
+                            href={`/posts/${post.slug}`}
+                            class="
+            hover:underline"
+                        >
+                            {post.title} -{" "}
+                            {new Date(post.date).toLocaleDateString()}
+                        </a>
                     </li>
                 ))
             }
         </ul>
-    </body>
-</html>
+    </section>
+    <section>
+        <h2 class="text-xl font-semibold">About me</h2>
+        <p>
+            I'm a software engineer with a passion for web development. I love
+            learning new technologies and sharing my knowledge with others.
+        </p>
+    </section>
+</Layout>

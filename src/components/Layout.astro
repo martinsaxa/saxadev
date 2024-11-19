@@ -1,0 +1,63 @@
+---
+interface Props {
+    title: string;
+}
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{Astro.props.title} - Martin Saxa</title>
+    </head>
+    <body class="min-h-screen flex flex-col bg-slate-50">
+        <header class="bg-blue-700">
+            <section
+                class="container mx-auto flex flex-col px-2 py-4 bg-blue-700 text-white"
+            >
+                <span class="text-2xl font-semibold">Martin Saxa</span>
+                <nav>
+                    <ul class="flex gap-2">
+                        <li>
+                            <a href="/" class="hover:underline">Home</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.linkedin.com/in/martin-saxa/"
+                                class="hover:underline">Linkedin</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com/martinsaxa"
+                                class="hover:underline">Github</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+            </section>
+        </header>
+        <main class="flex flex-col container mx-auto px-2 pt-2">
+            <slot />
+        </main>
+        <footer class="border-t-bg-slate-700 border mt-auto">
+            <section
+                class="container mx-auto px-2 py-1 flex justify-center text-center"
+            >
+                <span
+                    >Proudly build using <a
+                        href="https://astro.build/"
+                        target="_blank"
+                        rel="noopener noreferrer">Astro</a
+                    > and <a
+                        href="https://tina.io/"
+                        target="_blank"
+                        rel="noopener noreferrer">TinaCMS</a
+                    ></span
+                >
+            </section>
+        </footer>
+    </body>
+</html>
